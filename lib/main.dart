@@ -29,18 +29,16 @@ class MyApp extends StatelessWidget {
         body: Center(
           child: ChangeNotifierProvider(
             create: (_) => DailyQuests(),
-            child: Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(height: 20),
-                  QuestView(),
-                  Spacer(),
-                  CalendarView(),
-                  SizedBox(height: 20),
-                ],
-              ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SizedBox(height: 20),
+                QuestView(),
+                Spacer(),
+                CalendarView(),
+                const SizedBox(height: 20),
+              ],
             ),
           ),
         ),

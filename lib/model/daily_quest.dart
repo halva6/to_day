@@ -26,7 +26,7 @@ class DailyQuests extends ChangeNotifier {
 }
 
 class DailyQuest {
-  final List<Quest> _quests = List.empty(growable: true);
+  final List<Quest> _quests = [Quest("add TODO", false)];
   void addItem(String quest) {
     _quests.add(Quest(quest, false));
   }
