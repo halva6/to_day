@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:to_day/model/daily_quest.dart';
 
 class CalendarView extends StatefulWidget {
   const CalendarView({super.key});
@@ -10,26 +12,23 @@ class CalendarView extends StatefulWidget {
 class _CalendarViewState extends State<CalendarView> {
   DateTime _today = DateTime.now();
 
-  void _onDaySelected(DateTime day, DateTime focusedDay) {
-    setState(() {
-      _today = day;
-    });
-  }
-
-  bool _selectedDayPredicate(DateTime day) => isSameDay(day, _today);
-
-  DateTime getToDay() => _today;
-
   @override
   Widget build(BuildContext context) {
+    final DailyQuests dailyQuests = context.watch<DailyQuests>();
+
     return TableCalendar(
       focusedDay: _today,
       firstDay: DateTime.utc(2010, 10, 16),
       lastDay: DateTime.utc(2040, 3, 14),
       headerStyle: HeaderStyle(formatButtonVisible: false, titleCentered: true),
       rowHeight: 40,
-      onDaySelected: _onDaySelected,
-      selectedDayPredicate: _selectedDayPredicate,
+      onDaySelected: (day, focusedDay) {
+        setState(() {
+          _today = day;
+        });
+        dailyQuests.selectDateTime(day);
+      },
+      selectedDayPredicate: (day) => isSameDay(day, _today),
     );
   }
 }

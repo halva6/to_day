@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:to_day/model/daily_quest.dart';
 import 'package:to_day/widgets/calendar_view.dart';
 import 'package:to_day/widgets/quest_view.dart';
 
@@ -8,7 +10,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
+  final String _headingText = "To Day";
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -17,43 +19,30 @@ class MyApp extends StatelessWidget {
       seedColor: const Color.fromARGB(255, 33, 124, 167),
     );
     return MaterialApp(
-      title: 'To Day',
+      title: _headingText,
       theme: ThemeData(useMaterial3: true, colorScheme: colorScheme),
-      home: const MainPage(title: 'To Day'),
-    );
-  }
-}
-
-class MainPage extends StatefulWidget {
-  const MainPage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MainPage> createState() {
-    return _MainPageState();
-  }
-}
-
-class _MainPageState extends State<MainPage> {
-  @override
-  Widget build(BuildContext context) {
-
-    CalendarView calendarView = CalendarView();
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: .center,
-          children: [
-            QuestView(),
-            SizedBox(height: 10),
-            calendarView,
-            SizedBox(height: 20),
-          ],
+      home: Scaffold(
+        appBar: AppBar(
+          backgroundColor: colorScheme.inversePrimary,
+          title: Text(_headingText),
+        ),
+        body: Center(
+          child: ChangeNotifierProvider(
+            create: (_) => DailyQuests(),
+            child: Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(height: 20),
+                  QuestView(),
+                  Spacer(),
+                  CalendarView(),
+                  SizedBox(height: 20),
+                ],
+              ),
+            ),
+          ),
         ),
       ),
     );
