@@ -33,11 +33,8 @@ class MyApp extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const SizedBox(height: 20),
-                QuestView(),
-                Spacer(),
-                CalendarView(),
-                const SizedBox(height: 20),
+                Expanded(flex:3, child: QuestView()),
+                Expanded(flex:2, child: CalendarView()),
               ],
             ),
           ),

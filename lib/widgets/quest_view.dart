@@ -20,33 +20,48 @@ class _QuestViewState extends State<QuestView> {
     } else {
       DailyQuest? currentDailyQuest =
           dailyMap[dailyQuests.getSelectedDateTime()];
-      return Expanded(
-        child: ListView.builder(
-          itemCount: currentDailyQuest!.getQuests().length,
-          itemBuilder: (BuildContext context, int index) {
-            bool done = currentDailyQuest.getQuests()[index].getDone();
-            return ListTile(
-              leading: Checkbox(
-                value: done,
-                onChanged: (bool? newValue) {
-                  setState(() {
-                    done = (newValue != null) ? newValue : false;
-                    context
-                        .read<DailyQuests>()
-                        .getDailyQuests()[dailyQuests.getSelectedDateTime()]!
-                        .getQuests()[index]
-                        .setDone(done);
-                  });
-                },
-              ),
-              title: Text(currentDailyQuest.getQuests()[index].getQuest()),
-              trailing: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [const Icon(Icons.list)],
-              ),
-            );
-          },
-        ),
+      return Stack(
+        children: [
+          ListView.builder(
+            itemCount: currentDailyQuest!.getQuests().length,
+            itemBuilder: (BuildContext context, int index) {
+              bool done = currentDailyQuest.getQuests()[index].getDone();
+              return ListTile(
+                leading: Checkbox(
+                  value: done,
+                  onChanged: (bool? newValue) {
+                    setState(() {
+                      done = (newValue != null) ? newValue : false;
+                      context
+                          .read<DailyQuests>()
+                          .getDailyQuests()[dailyQuests
+                              .getSelectedDateTime()]!
+                          .getQuests()[index]
+                          .setDone(done);
+                    });
+                  },
+                ),
+                title: Text(currentDailyQuest.getQuests()[index].getQuest()),
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    IconButton(onPressed: () {}, icon: Icon(Icons.edit)),
+                    IconButton(onPressed: () {}, icon: Icon(Icons.delete)),
+                    const Icon(Icons.list),
+                  ],
+                ),
+              );
+            },
+          ),
+          Align(
+            alignment: Alignment(0.8, 0.8),
+            child: FloatingActionButton(
+              onPressed: () {},
+              tooltip: "Add",
+              child: const Icon(Icons.add),
+            ),
+          ),
+        ],
       );
     }
   }
