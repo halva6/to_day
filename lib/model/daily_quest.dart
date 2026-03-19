@@ -18,7 +18,15 @@ class DailyQuests extends ChangeNotifier {
   }
 
   Map<DateTime, DailyQuest> getDailyQuests() => _dailyQuests;
+  
   DateTime getSelectedDateTime() => _selectedDateTime;
+
+  void toggleDone(DateTime selectedDate, int index, bool value)
+  {
+    _dailyQuests[selectedDate]!.getQuests()[index].setDone(value);
+    notifyListeners();
+  }
+
   void selectDateTime(DateTime selectedDateTime) {
     _selectedDateTime = selectedDateTime;
     notifyListeners();

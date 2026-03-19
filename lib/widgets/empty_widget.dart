@@ -1,0 +1,35 @@
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:to_day/model/daily_quest.dart';
+
+class EmptyQuest extends StatelessWidget {
+  const EmptyQuest({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final dailyQuests = context.watch<DailyQuests>();
+    final ThemeData themeContext = Theme.of(context);
+
+    return Center(
+      child: Column(
+        children: [
+          const Text("No entry at this date"),
+          TextButton(
+            style: ButtonStyle(
+              backgroundColor: WidgetStatePropertyAll<Color>(
+                themeContext.highlightColor,
+              ),
+            ),
+            onPressed: () {
+              dailyQuests.addQuest(
+                dailyQuests.getSelectedDateTime(),
+                DailyQuest(),
+              );
+            },
+            child: const Text("add new Quest"),
+          ),
+        ],
+      ),
+    );
+  }
+}

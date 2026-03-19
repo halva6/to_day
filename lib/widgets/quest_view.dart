@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:to_day/model/daily_quest.dart';
+import 'package:to_day/widgets/empty_widget.dart';
+import 'package:to_day/widgets/quest_list.dart';
 
 class QuestView extends StatefulWidget {
   const QuestView({super.key});
@@ -13,88 +15,15 @@ class _QuestViewState extends State<QuestView> {
   Widget build(BuildContext context) {
     final dailyQuests = context.watch<DailyQuests>();
     final dailyMap = dailyQuests.getDailyQuests();
+    final selectedDate = dailyQuests.getSelectedDateTime();
 
-    if ((dailyMap.isEmpty ||
-        !dailyMap.containsKey(dailyQuests.getSelectedDateTime()))) {
+    if ((dailyMap.isEmpty || !dailyMap.containsKey(selectedDate))) {
       return EmptyQuest();
     } else {
-      DailyQuest? currentDailyQuest =
-          dailyMap[dailyQuests.getSelectedDateTime()];
-      return Stack(
-        children: [
-          ListView.builder(
-            itemCount: currentDailyQuest!.getQuests().length,
-            itemBuilder: (BuildContext context, int index) {
-              bool done = currentDailyQuest.getQuests()[index].getDone();
-              return ListTile(
-                leading: Checkbox(
-                  value: done,
-                  onChanged: (bool? newValue) {
-                    setState(() {
-                      done = (newValue != null) ? newValue : false;
-                      context
-                          .read<DailyQuests>()
-                          .getDailyQuests()[dailyQuests
-                              .getSelectedDateTime()]!
-                          .getQuests()[index]
-                          .setDone(done);
-                    });
-                  },
-                ),
-                title: Text(currentDailyQuest.getQuests()[index].getQuest()),
-                trailing: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    IconButton(onPressed: () {}, icon: Icon(Icons.edit)),
-                    IconButton(onPressed: () {}, icon: Icon(Icons.delete)),
-                    const Icon(Icons.list),
-                  ],
-                ),
-              );
-            },
-          ),
-          Align(
-            alignment: Alignment(0.8, 0.8),
-            child: FloatingActionButton(
-              onPressed: () {},
-              tooltip: "Add",
-              child: const Icon(Icons.add),
-            ),
-          ),
-        ],
+      return QuestList(
+        currentDailyQuest: dailyMap[selectedDate] ?? DailyQuest(),
+        selectedDate: selectedDate,
       );
     }
-  }
-}
-
-class EmptyQuest extends StatelessWidget {
-  const EmptyQuest({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final dailyQuests = context.watch<DailyQuests>();
-    final ThemeData themeContext = Theme.of(context);
-
-    return Center(
-      child: Column(
-        children: [
-          const Text("No entry at this date"),
-          TextButton(
-            style: ButtonStyle(
-              backgroundColor: WidgetStatePropertyAll<Color>(
-                themeContext.highlightColor,
-              ),
-            ),
-            onPressed: () {
-              dailyQuests.addQuest(
-                dailyQuests.getSelectedDateTime(),
-                DailyQuest(),
-              );
-            },
-            child: const Text("add new Quest"),
-          ),
-        ],
-      ),
-    );
   }
 }
