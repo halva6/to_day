@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:to_day/model/daily_quest.dart';
 import 'package:to_day/widgets/add_button.dart';
-import 'package:to_day/widgets/editable_text_widget.dart';
+import 'package:to_day/widgets/inline_text.dart';
 
 class QuestList extends StatelessWidget {
   const QuestList({
@@ -33,7 +33,10 @@ class QuestList extends StatelessWidget {
                   );
                 },
               ),
-              title: InlineText(initialText: quest.getQuest(),),
+              title: InlineText(
+                controller: TextEditingController(text: quest.getQuest()),
+                index: index,
+              ),
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [

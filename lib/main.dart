@@ -21,23 +21,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: _headingText,
       theme: ThemeData(useMaterial3: true, colorScheme: colorScheme),
-      home: Scaffold(
-        appBar: AppBar(
-          backgroundColor: colorScheme.inversePrimary,
-          title: Text(_headingText),
-        ),
-        body: Center(
-          child: ChangeNotifierProvider(
-            create: (_) => DailyQuests(),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Expanded(flex:3, child: QuestView()),
-                Expanded(flex:2, child: CalendarView()),
-              ],
-            ),
+      home: ChangeNotifierProvider(
+        create: (_) => DailyQuests(),
+        child: Scaffold(
+          drawer: CalendarView(),
+          appBar: AppBar(
+            backgroundColor: colorScheme.inversePrimary,
+            title: Text(_headingText),
           ),
+          body: Center(child: QuestView()),
         ),
       ),
     );

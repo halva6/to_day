@@ -10,25 +10,43 @@ class CalendarView extends StatefulWidget {
 }
 
 class _CalendarViewState extends State<CalendarView> {
-  DateTime _today = DateTime.now();
+  DateTime? _today;
 
   @override
   Widget build(BuildContext context) {
     final DailyQuests dailyQuests = context.watch<DailyQuests>();
+    final ThemeData themeContext = Theme.of(context);
+    _today = dailyQuests.getSelectedDateTime();
 
-    return TableCalendar(
-      focusedDay: _today,
-      firstDay: DateTime.utc(2010, 10, 16),
-      lastDay: DateTime.utc(2040, 3, 14),
-      headerStyle: HeaderStyle(formatButtonVisible: false, titleCentered: true),
-      rowHeight: 40,
-      onDaySelected: (day, focusedDay) {
-        setState(() {
-          _today = day;
-        });
-        dailyQuests.selectDateTime(day);
-      },
-      selectedDayPredicate: (day) => isSameDay(day, _today),
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          DrawerHeader(
+            decoration: BoxDecoration(color: themeContext.colorScheme.inversePrimary),
+            child: Center(child: Text('To do, to day')),
+          ),
+          ListTile(
+            title: TableCalendar(
+              focusedDay: _today ?? DateTime.now(),
+              firstDay: DateTime.utc(2010, 10, 16),
+              lastDay: DateTime.utc(2040, 3, 14),
+              headerStyle: HeaderStyle(
+                formatButtonVisible: false,
+                titleCentered: true,
+              ),
+              rowHeight: 60,
+              onDaySelected: (day, focusedDay) {
+                setState(() {
+                  _today = day;
+                });
+                dailyQuests.selectDateTime(day);
+              },
+              selectedDayPredicate: (day) => isSameDay(day, _today),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

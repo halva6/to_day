@@ -10,7 +10,8 @@ class EmptyQuest extends StatelessWidget {
     final dailyQuests = context.watch<DailyQuests>();
     final ThemeData themeContext = Theme.of(context);
 
-    return Center(
+    return Padding(
+      padding: EdgeInsetsGeometry.all(20),
       child: Column(
         children: [
           const Text("No entry at this date"),

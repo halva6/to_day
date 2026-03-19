@@ -10,6 +10,8 @@ class DailyQuests extends ChangeNotifier {
     DateTime.now().day,
   );
 
+  bool _editing = false;
+
   void addDailyQuest(DateTime dateTime, DailyQuest dailyQuest) {
     if (!_dailyQuests.containsKey(dateTime)) {
       _dailyQuests[dateTime] = dailyQuest;
@@ -17,24 +19,34 @@ class DailyQuests extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addQuest(DateTime selectedDate, String quest)
-  {
+  void addQuest(DateTime selectedDate, String quest) {
     _dailyQuests[selectedDate]!.addItem(quest);
     notifyListeners();
   }
 
   Map<DateTime, DailyQuest> getDailyQuests() => _dailyQuests;
-  
+
   DateTime getSelectedDateTime() => _selectedDateTime;
 
-  void toggleDone(DateTime selectedDate, int index, bool value)
-  {
+  bool isEditing() => _editing;
+
+  void toggleDone(DateTime selectedDate, int index, bool value) {
     _dailyQuests[selectedDate]!.getQuests()[index].setDone(value);
+    notifyListeners();
+  }
+
+  void changeQuest(DateTime selectDateTime, int index, String value) {
+    _dailyQuests[selectDateTime]!.getQuests()[index].setQuest(value);
     notifyListeners();
   }
 
   void selectDateTime(DateTime selectedDateTime) {
     _selectedDateTime = selectedDateTime;
+    notifyListeners();
+  }
+
+  void setEditing(bool isEditing) {
+    _editing = isEditing;
     notifyListeners();
   }
 }
