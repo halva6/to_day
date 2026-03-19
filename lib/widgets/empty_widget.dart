@@ -21,7 +21,7 @@ class EmptyQuest extends StatelessWidget {
               ),
             ),
             onPressed: () {
-              dailyQuests.addQuest(
+              dailyQuests.addDailyQuest(
                 dailyQuests.getSelectedDateTime(),
                 DailyQuest(),
               );

@@ -4,13 +4,8 @@ import 'package:to_day/model/daily_quest.dart';
 import 'package:to_day/widgets/empty_widget.dart';
 import 'package:to_day/widgets/quest_list.dart';
 
-class QuestView extends StatefulWidget {
+class QuestView extends StatelessWidget {
   const QuestView({super.key});
-  @override
-  State<QuestView> createState() => _QuestViewState();
-}
-
-class _QuestViewState extends State<QuestView> {
   @override
   Widget build(BuildContext context) {
     final dailyQuests = context.watch<DailyQuests>();

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:to_day/model/daily_quest.dart';
+import 'package:to_day/widgets/add_button.dart';
+import 'package:to_day/widgets/editable_text_widget.dart';
 
 class QuestList extends StatelessWidget {
   const QuestList({
@@ -31,11 +33,10 @@ class QuestList extends StatelessWidget {
                   );
                 },
               ),
-              title: Text(quest.getQuest()),
+              title: InlineText(initialText: quest.getQuest(),),
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  IconButton(onPressed: () {}, icon: Icon(Icons.edit)),
                   IconButton(onPressed: () {}, icon: Icon(Icons.delete)),
                   const Icon(Icons.list),
                 ],
@@ -43,14 +44,7 @@ class QuestList extends StatelessWidget {
             );
           },
         ),
-        Align(
-          alignment: const Alignment(0.8, 0.8),
-          child: FloatingActionButton(
-            onPressed: () {},
-            tooltip: "Add",
-            child: const Icon(Icons.add),
-          ),
-        ),
+        AddButton(selectedDate: selectedDate),
       ],
     );
   }

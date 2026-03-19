@@ -10,10 +10,16 @@ class DailyQuests extends ChangeNotifier {
     DateTime.now().day,
   );
 
-  void addQuest(DateTime dateTime, DailyQuest dailyQuest) {
+  void addDailyQuest(DateTime dateTime, DailyQuest dailyQuest) {
     if (!_dailyQuests.containsKey(dateTime)) {
       _dailyQuests[dateTime] = dailyQuest;
     }
+    notifyListeners();
+  }
+
+  void addQuest(DateTime selectedDate, String quest)
+  {
+    _dailyQuests[selectedDate]!.addItem(quest);
     notifyListeners();
   }
 
