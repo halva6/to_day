@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:to_day/controll/daily_quests_controller.dart';
+import 'package:to_day/controller/daily_quests_controller.dart';
 
 class InlineText extends StatefulWidget {
   final TextEditingController controller;
