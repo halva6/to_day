@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:to_day/controll/daily_quests_controller.dart';
 import 'package:to_day/model/daily_quest.dart';
 
 class EmptyQuest extends StatelessWidget {
@@ -7,7 +8,7 @@ class EmptyQuest extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dailyQuests = context.watch<DailyQuests>();
+    final dailyQuests = context.watch<DailyQuestsController>();
     final ThemeData themeContext = Theme.of(context);
 
     return Padding(

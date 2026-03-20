@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:to_day/model/daily_quest.dart';
+import 'package:to_day/controll/daily_quests_controller.dart';
 
 class InlineText extends StatefulWidget {
   final TextEditingController controller;
@@ -22,7 +22,7 @@ class _InlineTextState extends State<InlineText> {
 
     _focusNode.addListener(() {
       if (!_focusNode.hasFocus) {
-        context.read<DailyQuests>().stopEditing();
+        context.read<DailyQuestsController>().stopEditing();
       }
     });
   }
@@ -35,7 +35,7 @@ class _InlineTextState extends State<InlineText> {
 
   @override
   Widget build(BuildContext context) {
-    final dailyQuests = context.watch<DailyQuests>();
+    final dailyQuests = context.watch<DailyQuestsController>();
     final selectedDate = dailyQuests.getSelectedDateTime();
 
     final isEditing = dailyQuests.isEditing(widget.index);
@@ -44,7 +44,7 @@ class _InlineTextState extends State<InlineText> {
       behavior: HitTestBehavior.translucent,
       onTap: () {
         if (!isEditing) {
-          context.read<DailyQuests>().startEditing(widget.index);
+          context.read<DailyQuestsController>().startEditing(widget.index);
 
           WidgetsBinding.instance.addPostFrameCallback((_) {
             _focusNode.requestFocus();
@@ -59,8 +59,8 @@ class _InlineTextState extends State<InlineText> {
               autofocus: true,
               onTapOutside: (_) {
                 FocusManager.instance.primaryFocus?.unfocus();
-                context.read<DailyQuests>().stopEditing();
-                context.read<DailyQuests>().changeQuest(
+                context.read<DailyQuestsController>().stopEditing();
+                context.read<DailyQuestsController>().changeQuest(
                   selectedDate,
                   widget.index,
                   widget.controller.text,
@@ -69,8 +69,8 @@ class _InlineTextState extends State<InlineText> {
 
               onSubmitted: (_) {
                 FocusManager.instance.primaryFocus?.unfocus();
-                context.read<DailyQuests>().stopEditing();
-                context.read<DailyQuests>().changeQuest(
+                context.read<DailyQuestsController>().stopEditing();
+                context.read<DailyQuestsController>().changeQuest(
                   selectedDate,
                   widget.index,
                   widget.controller.text,

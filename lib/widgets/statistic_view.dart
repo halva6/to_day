@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:to_day/model/daily_quest.dart';
+import 'package:to_day/controll/daily_quests_controller.dart';
 
 class StatisticView extends StatelessWidget {
   const StatisticView({
@@ -14,10 +14,10 @@ class StatisticView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<DailyQuests>().sumupStats(selectedDate);
+    context.read<DailyQuestsController>().sumupStats(selectedDate);
     return Center(
       child: Text(
-        " ${context.watch<DailyQuests>().getQuestsDone()} / $length Todos done",
+        " ${context.watch<DailyQuestsController>().getQuestsDone()} / $length Todos done",
       ),
     );
   }

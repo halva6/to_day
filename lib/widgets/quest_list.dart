@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:to_day/controll/daily_quests_controller.dart';
 import 'package:to_day/model/daily_quest.dart';
 import 'package:to_day/widgets/add_button.dart';
 import 'package:to_day/widgets/inline_text.dart';
@@ -32,7 +33,7 @@ class QuestList extends StatelessWidget {
                     leading: Checkbox(
                       value: quest.getDone(),
                       onChanged: (bool? newValue) {
-                        context.read<DailyQuests>().toggleDone(
+                        context.read<DailyQuestsController>().toggleDone(
                           selectedDate,
                           index,
                           newValue ?? false,
@@ -45,7 +46,7 @@ class QuestList extends StatelessWidget {
                     ),
                     trailing: IconButton(
                       onPressed: () {
-                        context.read<DailyQuests>().removeQuest(
+                        context.read<DailyQuestsController>().removeQuest(
                           selectedDate,
                           index,
                         );
