@@ -10,8 +10,22 @@ class DailyQuests extends ChangeNotifier {
     DateTime.now().day,
   );
 
-  bool _editing = false;
+// editing
+  int? editingIndex;
 
+  bool isEditing(int index) => editingIndex == index;
+
+  void startEditing(int index) {
+    editingIndex = index;
+    notifyListeners();
+  }
+
+  void stopEditing() {
+    editingIndex = null;
+    notifyListeners();
+  }
+
+// quests
   void addDailyQuest(DateTime dateTime, DailyQuest dailyQuest) {
     if (!_dailyQuests.containsKey(dateTime)) {
       _dailyQuests[dateTime] = dailyQuest;
@@ -23,13 +37,12 @@ class DailyQuests extends ChangeNotifier {
     _dailyQuests[selectedDate]!.addItem(quest);
     notifyListeners();
   }
-
+//getter
   Map<DateTime, DailyQuest> getDailyQuests() => _dailyQuests;
 
   DateTime getSelectedDateTime() => _selectedDateTime;
 
-  bool isEditing() => _editing;
-
+//setter or actions witch specificly toggles the notfiyListners()
   void toggleDone(DateTime selectedDate, int index, bool value) {
     _dailyQuests[selectedDate]!.getQuests()[index].setDone(value);
     notifyListeners();
@@ -45,8 +58,8 @@ class DailyQuests extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setEditing(bool isEditing) {
-    _editing = isEditing;
+  void removeQuest(DateTime selectDateTime, int index) {
+    _dailyQuests[selectDateTime]!.getQuests().removeAt(index);
     notifyListeners();
   }
 }

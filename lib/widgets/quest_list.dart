@@ -37,12 +37,11 @@ class QuestList extends StatelessWidget {
                 controller: TextEditingController(text: quest.getQuest()),
                 index: index,
               ),
-              trailing: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  IconButton(onPressed: () {}, icon: Icon(Icons.delete)),
-                  const Icon(Icons.list),
-                ],
+              trailing: IconButton(
+                onPressed: () {
+                  context.read<DailyQuests>().removeQuest(selectedDate, index);
+                },
+                icon: Icon(Icons.delete),
               ),
             );
           },

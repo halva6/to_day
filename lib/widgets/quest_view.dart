@@ -11,7 +11,7 @@ class QuestView extends StatelessWidget {
     final dailyQuests = context.watch<DailyQuests>();
     final dailyMap = dailyQuests.getDailyQuests();
     final selectedDate = dailyQuests.getSelectedDateTime();
-
+    
     if ((dailyMap.isEmpty || !dailyMap.containsKey(selectedDate))) {
       return EmptyQuest();
     } else {
