@@ -10,10 +10,12 @@ class DailyQuests extends ChangeNotifier {
     DateTime.now().day,
   );
 
-// editing
+  // editing
   int? editingIndex;
 
   bool isEditing(int index) => editingIndex == index;
+
+  int _questsDone = 0;
 
   void startEditing(int index) {
     editingIndex = index;
@@ -25,7 +27,7 @@ class DailyQuests extends ChangeNotifier {
     notifyListeners();
   }
 
-// quests
+  // quests
   void addDailyQuest(DateTime dateTime, DailyQuest dailyQuest) {
     if (!_dailyQuests.containsKey(dateTime)) {
       _dailyQuests[dateTime] = dailyQuest;
@@ -37,12 +39,15 @@ class DailyQuests extends ChangeNotifier {
     _dailyQuests[selectedDate]!.addItem(quest);
     notifyListeners();
   }
-//getter
+
+  //getter
   Map<DateTime, DailyQuest> getDailyQuests() => _dailyQuests;
 
   DateTime getSelectedDateTime() => _selectedDateTime;
 
-//setter or actions witch specificly toggles the notfiyListners()
+  int getQuestsDone() => _questsDone;
+
+  //setter or actions witch specificly toggles the notfiyListners()
   void toggleDone(DateTime selectedDate, int index, bool value) {
     _dailyQuests[selectedDate]!.getQuests()[index].setDone(value);
     notifyListeners();
@@ -61,6 +66,17 @@ class DailyQuests extends ChangeNotifier {
   void removeQuest(DateTime selectDateTime, int index) {
     _dailyQuests[selectDateTime]!.getQuests().removeAt(index);
     notifyListeners();
+  }
+
+  void sumupStats(DateTime selectDateTime) {
+    if (_dailyQuests[selectDateTime] != null) {
+      DailyQuest dailyQuest = _dailyQuests[selectDateTime]!;
+      int count = 0;
+      for (Quest quest in dailyQuest.getQuests()) {
+        count += (quest.getDone()) ? 1 : 0;
+      }
+      _questsDone = count;
+    }
   }
 }
 
