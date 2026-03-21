@@ -7,6 +7,12 @@ class ViewHeader extends StatelessWidget {
 
   final DateTime selectedDate;
 
+  bool isDateToDay(DateTime selectDate)
+  {
+    DateTime today = DateTime.now();
+    return (selectDate.year == today.year && selectDate.month == today.month && selectDate.day == today.day);
+  }
+
   @override
   Widget build(BuildContext context) {
     final dailyQuests = context.watch<DailyQuestsController>();
@@ -26,7 +32,7 @@ class ViewHeader extends StatelessWidget {
             child: Center(
               child: Text(
                 "Date: ${selectedDate.month} / ${selectedDate.day}",
-                style: const TextStyle(fontStyle: FontStyle.italic),
+                style: TextStyle(fontStyle: FontStyle.italic, fontWeight: (isDateToDay(selectedDate)) ? FontWeight.w800 : FontWeight.normal),
               ),
             ),
           ),

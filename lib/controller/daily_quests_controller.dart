@@ -102,7 +102,12 @@ class DailyQuestsController extends ChangeNotifier {
 
   void removeQuest(DateTime selectedDate, int index) {
     _dailyQuests[selectedDate]!.getQuests().removeAt(index);
-    _save(selectedDate);
+    if(_dailyQuests[selectedDate]!.getQuests().isEmpty)
+    {
+      box.delete(dateTimeToString(selectedDate));
+      _dailyQuests.remove(selectedDate);
+    }else{
+    _save(selectedDate);}
 
     notifyListeners();
   }
