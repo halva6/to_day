@@ -107,6 +107,12 @@ class DailyQuestsController extends ChangeNotifier {
     notifyListeners();
   }
 
+  void previousOrNextDate(DateTime selectDate, int dateDifference)
+  {
+    _selectedDateTime = selectDate.add(Duration(days:-dateDifference));
+    notifyListeners();
+  }
+
   void sumupStats(DateTime selectedDate) {
     if (_dailyQuests[selectedDate] != null) {
       DailyQuest dailyQuest = _dailyQuests[selectedDate]!;

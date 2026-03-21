@@ -24,14 +24,14 @@ class _CalendarViewState extends State<CalendarView> {
         children: [
           DrawerHeader(
             decoration: BoxDecoration(color: themeContext.colorScheme.inversePrimary),
-            child: Center(child: Text('To do, to day')),
+            child: const Center(child: Text('To do, to day')),
           ),
           ListTile(
             title: TableCalendar(
               focusedDay: _today ?? DateTime.now(),
               firstDay: DateTime.utc(2010, 10, 16),
               lastDay: DateTime.utc(2040, 3, 14),
-              headerStyle: HeaderStyle(
+              headerStyle: const HeaderStyle(
                 formatButtonVisible: false,
                 titleCentered: true,
               ),

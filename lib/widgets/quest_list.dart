@@ -51,7 +51,7 @@ class QuestList extends StatelessWidget {
                           index,
                         );
                       },
-                      icon: Icon(Icons.delete),
+                      icon: const Icon(Icons.delete),
                     ),
                   );
                 },

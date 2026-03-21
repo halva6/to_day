@@ -35,12 +35,12 @@ class MyApp extends StatelessWidget {
       home: ChangeNotifierProvider(
         create: (_) => DailyQuestsController(),
         child: Scaffold(
-          drawer: CalendarView(),
+          drawer: const CalendarView(),
           appBar: AppBar(
             backgroundColor: colorScheme.inversePrimary,
             title: Text(_headingText),
           ),
-          body: Center(child: QuestView()),
+          body: Center(child: const QuestView()),
         ),
       ),
     );

@@ -4,6 +4,7 @@ import 'package:to_day/controller/daily_quests_controller.dart';
 import 'package:to_day/model/daily_quest.dart';
 import 'package:to_day/widgets/empty_widget.dart';
 import 'package:to_day/widgets/quest_list.dart';
+import 'package:to_day/widgets/view_header.dart';
 
 class QuestView extends StatelessWidget {
   const QuestView({super.key});
@@ -15,16 +16,11 @@ class QuestView extends StatelessWidget {
 
     return Column(
       children: [
-        SizedBox(
-          height: 40,
-          child: Center(
-            child: Text("Date: ${selectedDate.month} / ${selectedDate.day}", style:  TextStyle( fontStyle: FontStyle.italic)),
-          ),
-        ),
-        Divider(),
+        ViewHeader(selectedDate: selectedDate),
+        const Divider(),
         Expanded(
           child: (dailyMap.isEmpty || !dailyMap.containsKey(selectedDate))
-              ? EmptyQuest()
+              ? const EmptyQuest()
               : QuestList(
                   currentDailyQuest: dailyMap[selectedDate] ?? DailyQuest(),
                   selectedDate: selectedDate,
