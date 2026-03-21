@@ -13,13 +13,24 @@ class QuestView extends StatelessWidget {
     final dailyMap = dailyQuests.getDailyQuests();
     final selectedDate = dailyQuests.getSelectedDateTime();
 
-    if ((dailyMap.isEmpty || !dailyMap.containsKey(selectedDate))) {
-      return EmptyQuest();
-    } else {
-      return QuestList(
-        currentDailyQuest: dailyMap[selectedDate] ?? DailyQuest(),
-        selectedDate: selectedDate,
-      );
-    }
+    return Column(
+      children: [
+        SizedBox(
+          height: 40,
+          child: Center(
+            child: Text("Date: ${selectedDate.month} / ${selectedDate.day}", style:  TextStyle( fontStyle: FontStyle.italic)),
+          ),
+        ),
+        Divider(),
+        Expanded(
+          child: (dailyMap.isEmpty || !dailyMap.containsKey(selectedDate))
+              ? EmptyQuest()
+              : QuestList(
+                  currentDailyQuest: dailyMap[selectedDate] ?? DailyQuest(),
+                  selectedDate: selectedDate,
+                ),
+        ),
+      ],
+    );
   }
 }
