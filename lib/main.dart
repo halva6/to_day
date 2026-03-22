@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
     );
     return MaterialApp(
       title: _headingText,
-      theme: ThemeData(useMaterial3: true, colorScheme: colorScheme),
+      theme: ThemeData(useMaterial3: true, colorScheme: colorScheme, fontFamily: 'arial'),
       home: ChangeNotifierProvider(
         create: (_) => DailyQuestsController(),
         child: Scaffold(

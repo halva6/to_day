@@ -29,29 +29,36 @@ class QuestList extends StatelessWidget {
                 itemCount: length,
                 itemBuilder: (BuildContext contextItemBuilder, int index) {
                   final quest = currentDailyQuest.getQuests()[index];
-                  return ListTile(
-                    leading: Checkbox(
-                      value: quest.getDone(),
-                      onChanged: (bool? newValue) {
-                        context.read<DailyQuestsController>().toggleDone(
-                          selectedDate,
-                          index,
-                          newValue ?? false,
-                        );
-                      },
-                    ),
-                    title: InlineText(
-                      controller: TextEditingController(text: quest.getQuest()),
-                      index: index,
-                    ),
-                    trailing: IconButton(
-                      onPressed: () {
-                        context.read<DailyQuestsController>().removeQuest(
-                          selectedDate,
-                          index,
-                        );
-                      },
-                      icon: const Icon(Icons.delete),
+                  return Padding(
+                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                    child: Card(
+                      child: ListTile(
+                        leading: Checkbox(
+                          value: quest.getDone(),
+                          onChanged: (bool? newValue) {
+                            context.read<DailyQuestsController>().toggleDone(
+                              selectedDate,
+                              index,
+                              newValue ?? false,
+                            );
+                          },
+                        ),
+                        title: InlineText(
+                          controller: TextEditingController(
+                            text: quest.getQuest(),
+                          ),
+                          index: index,
+                        ),
+                        trailing: IconButton(
+                          onPressed: () {
+                            context.read<DailyQuestsController>().removeQuest(
+                              selectedDate,
+                              index,
+                            );
+                          },
+                          icon: const Icon(Icons.delete),
+                        ),
+                      ),
                     ),
                   );
                 },
