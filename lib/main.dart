@@ -22,6 +22,7 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
   final String _headingText = "To Day";
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: _headingText,
       theme: ThemeData(useMaterial3: true, colorScheme: colorScheme, fontFamily: 'arial'),
+      themeMode: ThemeMode.system,
       home: ChangeNotifierProvider(
         create: (_) => DailyQuestsController(),
         child: Scaffold(

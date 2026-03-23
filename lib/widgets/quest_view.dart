@@ -13,7 +13,7 @@ class QuestView extends StatelessWidget {
     final dailyQuests = context.watch<DailyQuestsController>();
     final dailyMap = dailyQuests.getDailyQuests();
     final selectedDate = dailyQuests.getSelectedDateTime();
-
+    
     return Column(
       children: [
         ViewHeader(selectedDate: selectedDate),
